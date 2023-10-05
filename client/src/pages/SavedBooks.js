@@ -69,8 +69,8 @@ const SavedBooks = () => {
   }
 
 
-  console.log('userData:', userData);
-  console.log('data:', data); 
+  // console.log('userData:', userData);
+  // console.log('data:', data); 
 
   return (
     <>

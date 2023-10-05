@@ -20,13 +20,12 @@ const resolvers = {
     },
 
     Mutation: {
-        addUser: async (_, {args}) => {
+        addUser: async (_, {email, password }) => {
                 const userAlreadyMade = await User.findOne({ email});
 
                 if(userAlreadyMade) {
                     throw new AuthenticationError('Someone is using this email!! ): ');
                 }
-                const passHash = await User.hashPassword(password);
 
                 const makeUser = await User.create ({
                     username,

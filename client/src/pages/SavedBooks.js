@@ -68,6 +68,10 @@ const SavedBooks = () => {
     return <h2>LOADING...</h2>;
   }
 
+
+  console.log('userData:', userData);
+  console.log('data:', data); 
+
   return (
     <>
       <div fluid className="text-light bg-dark p-5">

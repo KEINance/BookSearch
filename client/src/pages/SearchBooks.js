@@ -14,7 +14,7 @@ import { saveBookIds, getSavedBookIds } from '../utils/localStorage';
 import { useMutation } from '@apollo/client';
 import { SAVE_BOOK } from '../utils/Mutations';
 
-const SearchBooks = async () => {
+const SearchBooks = () => {
   // create state for holding returned google api data
   const [searchedBooks, setSearchedBooks] = useState([]);
   // create state for holding our search field data
@@ -27,34 +27,9 @@ const SearchBooks = async () => {
   // const searchGoogleBooks = await fetch (
   //  `https://www.googleapis.com/books/v1/volumes?q=${searchInput}`
   // );
-  const response = fetch(`https://www.googleapis.com/books/v1/volumes?q=${searchInput}`)
-  .then((response) => {
-    if (!response.ok) {
-      throw new Error('something went wrong!');
-    }
-    return response.json();
-  })
-  .then((data) => {
-    const { items } = data;
-
-    const bookData = items.map((book) => ({
-      bookId: book.id,
-      authors: book.volumeInfo.authors || ['No author to display'],
-      title: book.volumeInfo.title,
-      description: book.volumeInfo.description,
-      image: book.volumeInfo.imageLinks?.thumbnail || '',
-    }));
-
-    setSearchedBooks(bookData);
-    setSearchInput('');
-  })
-  .catch((err) => {
-    console.error(err);
-  });
-;
 
 
-  // set up useEffect hook to save `savedBookIds` list to localStorage on component unmount
+// set up useEffect hook to save `savedBookIds` list to localStorage on component unmount
   // learn more here: https://reactjs.org/docs/hooks-effect.html#effects-with-cleanup
   useEffect(() => {
     return () => saveBookIds(savedBookIds);
@@ -67,9 +42,10 @@ const SearchBooks = async () => {
     if (!searchInput) {
       return false;
     }
-
+    
     try {
       // const response = await searchGoogleBooks(searchInput);
+      const response = fetch(`https://www.googleapis.com/books/v1/volumes?q=${searchInput}`)
 
       if (!response.ok) {
         throw new Error('something went wrong!');

@@ -1,18 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import {
-  Container,
-  Card,
-  Button,
-  Row,
-  Col
-} from 'react-bootstrap';
+import React, { useState, useEffect } from "react";
+import { Container, Card, Button, Row, Col } from "react-bootstrap";
 
 // import { getMe, deleteBook } from '../utils/API';
-import { useMutation, useQuery } from '@apollo/client';
-import Auth from '../utils/auth';
-import { removeBookId } from '../utils/localStorage';
-import { REMOVE_BOOK } from '../utils/Mutations'; 
-import { QUERY_ME } from '../utils/Queries';
+import { useMutation, useQuery } from "@apollo/client";
+import Auth from "../utils/auth";
+import { removeBookId } from "../utils/localStorage";
+import { REMOVE_BOOK } from "../utils/Mutations";
+import { QUERY_ME } from "../utils/Queries";
 
 const SavedBooks = () => {
   // const [userData, setUserData] = useState({});
@@ -54,7 +48,7 @@ const SavedBooks = () => {
     }
 
     try {
-      const { data } = await removeBook({ variables: { bookId }});
+      const { data } = await removeBook({ variables: { bookId } });
       // setUserData(updatedUser);
       // upon success, remove book's id from localStorage
       removeBookId(bookId);
@@ -68,34 +62,44 @@ const SavedBooks = () => {
     return <h2>LOADING...</h2>;
   }
 
-
   // console.log('userData:', userData);
-  // console.log('data:', data); 
+  // console.log('data:', data);
 
   return (
     <>
-      <div fluid className="text-light bg-dark p-5">
+      <div fluid="true" className="text-light bg-dark p-5">
         <Container>
           <h1>Viewing saved books!</h1>
         </Container>
       </div>
       <Container>
-        <h2 className='pt-5'>
-          {userData.savedBooks.length
-            ? `Viewing ${userData.savedBooks.length} saved ${userData.savedBooks.length === 1 ? 'book' : 'books'}:`
-            : 'You have no saved books!'}
+        <h2 className="pt-5">
+          {userData?.savedBooks?.length
+            ? `Viewing ${userData.savedBooks.length} 
+            saved ${userData.savedBooks.length === 1 ? "book" : "books"}:`
+            : "You have no saved books!"}
         </h2>
         <Row>
-          {userData.savedBooks.map((book) => {
+          {userData.savedBooks?.map((book) => {
+            // Use optional chaining (?)
             return (
-              <Col md="4">
-                <Card key={book.bookId} border='dark'>
-                  {book.image ? <Card.Img src={book.image} alt={`The cover for ${book.title}`} variant='top' /> : null}
+              <Col md="4" key={book.bookId}>
+                <Card border="dark">
+                  {book.image ? (
+                    <Card.Img
+                      src={book.image}
+                      alt={`The cover for ${book.title}`}
+                      variant="top"
+                    />
+                  ) : null}
                   <Card.Body>
                     <Card.Title>{book.title}</Card.Title>
-                    <p className='small'>Authors: {book.authors}</p>
+                    <p className="small">Authors: {book.authors}</p>
                     <Card.Text>{book.description}</Card.Text>
-                    <Button className='btn-block btn-danger' onClick={() => handleDeleteBook(book.bookId)}>
+                    <Button
+                      className="btn-block btn-danger"
+                      onClick={() => handleDeleteBook(book.bookId)}
+                    >
                       Delete this Book!
                     </Button>
                   </Card.Body>

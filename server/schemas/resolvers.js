@@ -36,8 +36,9 @@ const resolvers = {
       return { token, user: makeUser };
     },
 
-    saveBook: async (_, { input }, context) => {
-      const user = await User.findOneAndUpdate(
+    saveBook: async (_, { bookData }, context) => {
+      const user = await User.findByIdAndUpdate(
+        context.user._id,
         { $push: { savedBooks: bookData } },
         { new: true }
       );

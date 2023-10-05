@@ -2,7 +2,7 @@ const express = require('express');
 const { ApolloServer } = require('apollo-server-express');
 const path = require('path');
 const { authMiddleware, signToken } = require('./utils/auth');
-const routes = require('./routes');
+// const routes = require('./routes');
 const { typeDefs, resolvers } = require('./schemas');
 const db = require('./config/connection');
 
@@ -18,7 +18,7 @@ const server = new ApolloServer({
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-app.use(routes);
+// app.use(routes);
 
 // Serve up static assets
 if (process.env.NODE_ENV === 'production') {

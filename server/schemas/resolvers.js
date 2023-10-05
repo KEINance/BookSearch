@@ -1,9 +1,9 @@
 
 // import authentication error and
 const { AuthenticationError } = require('apollo-server-express');
-
 // import the User and Book models
 const { User, Book } = require('../models');
+const { signToken } = require('../utils/auth.js')
 
 const resolvers = {
     Query: {
@@ -20,7 +20,7 @@ const resolvers = {
     },
 
     Mutation: {
-        addUser: async (_, {email, password }) => {
+        addUser: async (_, {username, email, password }) => {
                 const userAlreadyMade = await User.findOne({ email});
 
                 if(userAlreadyMade) {
@@ -30,7 +30,7 @@ const resolvers = {
                 const makeUser = await User.create ({
                     username,
                     email, 
-                    password: passHash,
+                    password
                 })
 
                 const token = signToken(makeUser);

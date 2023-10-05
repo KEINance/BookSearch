@@ -27,7 +27,7 @@ const SearchBooks = async () => {
   // const searchGoogleBooks = await fetch (
   //  `https://www.googleapis.com/books/v1/volumes?q=${searchInput}`
   // );
-  fetch(`https://www.googleapis.com/books/v1/volumes?q=${searchInput}`)
+  const response = fetch(`https://www.googleapis.com/books/v1/volumes?q=${searchInput}`)
   .then((response) => {
     if (!response.ok) {
       throw new Error('something went wrong!');

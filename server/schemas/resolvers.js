@@ -38,7 +38,7 @@ const resolvers = {
 
     saveBook: async (_, { bookData }, context) => {
       const user = await User.findByIdAndUpdate(
-        context.user._id,
+        { _id: context.user._id},
         { $push: { savedBooks: bookData } },
         { new: true }
       );
